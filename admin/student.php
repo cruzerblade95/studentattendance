@@ -23,9 +23,8 @@ include('header.php');
   				<thead>
   					<tr>
   						<th>Student Name</th>
-  						<th>Roll No.</th>
   						<th>Date of Birth</th>
-              			<th>Grade</th>
+              			<th>Class</th>
   						<th>Edit</th>
   						<th>Delete</th>
   					</tr>
@@ -74,7 +73,7 @@ include('header.php');
               </div>
             </div>
           </div>
-          <div class="form-group">
+          <!-- <div class="form-group">
             <div class="row">
               <label class="col-md-4 text-right">Roll No. <span class="text-danger">*</span></label>
               <div class="col-md-8">
@@ -82,7 +81,7 @@ include('header.php');
                 <span id="error_student_roll_number" class="text-danger"></span>
               </div>
             </div>
-          </div>
+          </div> -->
           <div class="form-group">
             <div class="row">
               <label class="col-md-4 text-right">Date of Birth <span class="text-danger">*</span></label>
@@ -94,10 +93,10 @@ include('header.php');
           </div>
           <div class="form-group">
             <div class="row">
-              <label class="col-md-4 text-right">Grade <span class="text-danger">*</span></label>
+              <label class="col-md-4 text-right">Class <span class="text-danger">*</span></label>
               <div class="col-md-8">
                 <select name="student_grade_id" id="student_grade_id" class="form-control">
-                  <option value="">Select Grade</option>
+                  <option value="">Select Class</option>
                   <?php
                   echo load_grade_list($connect);
                   ?>

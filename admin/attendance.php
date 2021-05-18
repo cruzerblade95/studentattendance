@@ -12,7 +12,6 @@ include('header.php');
       <div class="row">
         <div class="col-md-9">Attendance List</div>
         <div class="col-md-3" align="right">
-          <button type="button" id="chart_button" class="btn btn-primary btn-sm">Chart</button>
           <button type="button" id="report_button" class="btn btn-danger btn-sm">Report</button>
         </div>
       </div>
@@ -23,8 +22,7 @@ include('header.php');
           <thead>
             <tr>
               <th>Student Name</th>
-              <th>Roll Number</th>
-              <th>Grade</th>
+              <th>Class</th>
               <th>Attendance Status</th>
               <th>Attendance Date</th>
               <th>Teacher</th>

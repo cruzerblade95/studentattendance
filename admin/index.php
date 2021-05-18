@@ -22,10 +22,10 @@ include('header.php');
           <thead>
             <tr>
               <th>Student Name</th>
-              <th>Roll Number</th>
-              <th>Grade</th>
+              <th>Class</th>
+              <th>Class Name</th>
               <th>Teacher</th>
-              <th>Attendance Percentage</th>
+              <th>Attendance Student Percentage(monthly)</th>
               <th>Report</th>
             </tr>
           </thead>

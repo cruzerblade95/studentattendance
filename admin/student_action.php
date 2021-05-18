@@ -53,7 +53,7 @@ if(isset($_POST["action"]))
 		{
 			$sub_array = array();
 			$sub_array[] = $row["student_name"];
-			$sub_array[] = $row["student_roll_number"];
+			// $sub_array[] = $row["student_roll_number"];
 			$sub_array[] = $row["student_dob"];
 			$sub_array[] = $row["grade_name"];
 			$sub_array[] = '<button type="button" name="edit_student" class="btn btn-primary btn-sm edit_student" id="'.$row["student_id"].'">Edit</button>';

@@ -47,7 +47,7 @@ if(!isset($_SESSION["admin_id"]))
   <div class="collapse navbar-collapse" id="collapsibleNavbar">
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" href="grade.php">Grade</a>
+        <a class="nav-link" href="grade.php">Class</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="teacher.php">Teacher</a>

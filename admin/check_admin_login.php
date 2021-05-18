@@ -51,7 +51,8 @@ if($error == 0)
 			$result = $statement->fetchAll();
 			foreach($result as $row)
 			{
-				if(password_verify($admin_password, $row["admin_password"]))
+				$hashed_password = password_hash($row["admin_password"], PASSWORD_DEFAULT);
+				if(password_verify($admin_password, $hashed_password))
 				{
 					$_SESSION["admin_id"] = $row["admin_id"];
 				}

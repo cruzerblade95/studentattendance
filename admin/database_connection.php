@@ -4,7 +4,7 @@
 
 $connect = new PDO("mysql:host=localhost;dbname=attendance","root","");
 
-$base_url = "http://localhost/tutorial/student-attendance-system-in-php-using-ajax/";
+$base_url = "http://localhost/student-attendance-php/";
 
 function get_total_records($connect, $table_name)
 {
@@ -126,6 +126,15 @@ function Get_grade_name($connect, $grade_id)
 	{
 		return $row["grade_name"];
 	}
+}
+
+function console_log($output, $with_script_tags = true) {
+    $js_code = 'console.log(' . json_encode($output, JSON_HEX_TAG) . 
+');';
+    if ($with_script_tags) {
+        $js_code = '<script>' . $js_code . '</script>';
+    }
+    echo $js_code;
 }
 
 ?>

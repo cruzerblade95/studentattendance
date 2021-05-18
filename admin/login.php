@@ -38,7 +38,7 @@ if(isset($_SESSION["admin_id"]))
     </div>
     <div class="col-md-4" style="margin-top:20px;">
       <div class="card">
-        <div class="card-header">Admin Login</div>
+        <div class="card-header"><h4 style="text-align: center;">Admin</h4> Login</div>
         <div class="card-body">
           <form method="post" id="admin_login_form">
             <div class="form-group">

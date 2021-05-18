@@ -66,7 +66,7 @@ if(isset($_POST["action"]))
 			}
 
 			$sub_array[] = $row["student_name"];
-			$sub_array[] = $row["student_roll_number"];
+			// $sub_array[] = $row["student_roll_number"];
 			$sub_array[] = $row["grade_name"];
 			$sub_array[] = $status;
 			$sub_array[] = $row["attendance_date"];
@@ -195,7 +195,6 @@ if(isset($_POST["action"]))
 		{
 			$sub_array = array();
 			$sub_array[] = $row["student_name"];
-			$sub_array[] = $row["student_roll_number"];
 			$sub_array[] = $row["grade_name"];
 			$sub_array[] = get_attendance_percentage($connect, $row["student_id"]);
 			$sub_array[] = '<button type="button" name="report_button" id="'.$row["student_id"].'" class="btn btn-info btn-sm report_button">Report</button>';

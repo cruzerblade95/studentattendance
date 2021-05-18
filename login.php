@@ -39,7 +39,7 @@ if(isset($_SESSION["teacher_id"]))
     </div>
     <div class="col-md-4" style="margin-top:20px;">
       <div class="card">
-        <div class="card-header">Teacher Login</div>
+        <div class="card-header"><h4 style="text-align: center;">Teacher</h4> Login</div>
         <div class="card-body">
           <form method="post" id="teacher_login_form">
             <div class="form-group">

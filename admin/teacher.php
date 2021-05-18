@@ -23,7 +23,7 @@ include('header.php');
   						<th>Image</th>
   						<th>Teacher Name</th>
   						<th>Email Address</th>
-              <th>Grade</th>
+              <th>Class</th>
   						<th>View</th>
   						<th>Edit</th>
   						<th>Delete</th>
@@ -99,7 +99,7 @@ include('header.php');
               </div>
             </div>
           </div>
-          <div class="form-group">
+          <!-- <div class="form-group">
             <div class="row">
               <label class="col-md-4 text-right">Qualification <span class="text-danger">*</span></label>
               <div class="col-md-8">
@@ -107,13 +107,13 @@ include('header.php');
                 <span id="error_teacher_qualification" class="text-danger"></span>
               </div>
             </div>
-          </div>
+          </div> -->
           <div class="form-group">
             <div class="row">
-              <label class="col-md-4 text-right">Grade <span class="text-danger">*</span></label>
+              <label class="col-md-4 text-right">Class <span class="text-danger">*</span></label>
               <div class="col-md-8">
                 <select name="teacher_grade_id" id="teacher_grade_id" class="form-control">
-                  <option value="">Select Grade</option>
+                  <option value="">Select Class</option>
                   <?php
                   echo load_grade_list($connect);
                   ?>

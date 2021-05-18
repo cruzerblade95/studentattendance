@@ -312,15 +312,7 @@ if(isset($_POST["action"]))
 							<td>'.$row["teacher_emailid"].'</td>
 						</tr>
 						<tr>
-							<th>Qualification</th>
-							<td>'.$row["teacher_qualification"].'</td>
-						</tr>
-						<tr>
-							<th>Date of Joining</th>
-							<td>'.$row["teacher_doj"].'</td>
-						</tr>
-						<tr>
-							<th>Grade</th>
+							<th>Class Name</th>
 							<td>'.$row["grade_name"].'</td>
 						</tr>
 					</table>

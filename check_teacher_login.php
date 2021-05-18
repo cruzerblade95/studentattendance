@@ -48,7 +48,8 @@ if($error == 0)
 			$result = $statement->fetchAll();
 			foreach($result as $row)
 			{
-				if(password_verify($teacher_password, $row["teacher_password"]))
+				$hashed_password = password_hash($row["teacher_password"], PASSWORD_DEFAULT);
+				if(password_verify($teacher_password, $hashed_password))
 				{
 					$_SESSION["teacher_id"] = $row["teacher_id"];
 				}

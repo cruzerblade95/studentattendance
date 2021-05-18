@@ -10,7 +10,7 @@ include('header.php');
   <div class="card">
   	<div class="card-header">
       <div class="row">
-        <div class="col-md-9">Overall Student Attendance Status</div>
+        <div class="col-md-9">Status Student Attendance</div>
         <div class="col-md-3" align="right">
           
         </div>
@@ -22,9 +22,8 @@ include('header.php');
           <thead>
             <tr>
               <th>Student Name</th>
-              <th>Roll Number</th>
-              <th>Grade</th>
-              <th>Attendance Percentage</th>
+              <th>Class</th>
+              <th>Attendance Student Percentage(monthly)</th>
               <th>Report</th>
             </tr>
           </thead>

@@ -10,7 +10,7 @@ include('header.php');
   <div class="card">
   	<div class="card-header">
       <div class="row">
-        <div class="col-md-9">Grade List</div>
+        <div class="col-md-9">Class List</div>
         <div class="col-md-3" align="right">
           <button type="button" id="add_button" class="btn btn-info btn-sm">Add</button>
         </div>
@@ -22,7 +22,7 @@ include('header.php');
         <table class="table table-striped table-bordered" id="grade_table">
           <thead>
             <tr>
-              <th>Grade Name</th>
+              <th>Class Name</th>
               <th>Edit</th>
               <th>Delete</th>
             </tr>
@@ -54,7 +54,7 @@ include('header.php');
         <div class="modal-body">
           <div class="form-group">
             <div class="row">
-              <label class="col-md-4 text-right">Grade Name <span class="text-danger">*</span></label>
+              <label class="col-md-4 text-right">Class Name <span class="text-danger">*</span></label>
               <div class="col-md-8">
                 <input type="text" name="grade_name" id="grade_name" class="form-control" />
                 <span id="error_grade_name" class="text-danger"></span>
@@ -124,7 +124,7 @@ $(document).ready(function(){
   });
 
   $('#add_button').click(function(){
-    $('#modal_title').text('Add Grade');
+    $('#modal_title').text('Add Class');
     $('#button_action').val('Add');
     $('#action').val('Add');
     $('#formModal').modal('show');

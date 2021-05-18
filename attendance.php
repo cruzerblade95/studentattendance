@@ -24,8 +24,7 @@ include('header.php');
           <thead>
             <tr>
               <th>Student Name</th>
-              <th>Roll Number</th>
-              <th>Grade</th>
+              <th>Class</th>
               <th>Attendance Status</th>
               <th>Attendance Date</th>
             </tr>
@@ -84,7 +83,7 @@ $result = $statement->fetchAll();
           ?>
           <div class="form-group">
             <div class="row">
-              <label class="col-md-4 text-right">Grade <span class="text-danger">*</span></label>
+              <label class="col-md-4 text-right">Class <span class="text-danger">*</span></label>
               <div class="col-md-8">
                 <?php
                 echo '<label>'.$row["grade_name"].'</label>';
@@ -106,7 +105,7 @@ $result = $statement->fetchAll();
               <table class="table table-striped table-bordered">
                 <thead>
                   <tr>
-                    <th>Roll No.</th>
+                    <th>Id</th>
                     <th>Student Name</th>
                     <th>Present</th>
                     <th>Absent</th>

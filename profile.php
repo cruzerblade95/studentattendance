@@ -178,6 +178,12 @@ if(isset($_POST["button_action"]))
 	}
 }
 
+if(isset($_GET['status'])){
+$status = $_GET['status'];
+if($status == "success"){
+	$success = '<div class="alert alert-success">Profile Details Change Successfully</div>';
+}
+}
 
 $query = "
 SELECT * FROM tbl_teacher 
@@ -206,7 +212,7 @@ $result = $statement->fetchAll();
 				<div class="row">
 					<label class="col-md-4 text-right">Teacher Name <span class="text-danger">*</span></label>
 					<div class="col-md-8">
-						<input type="text" name="teacher_name" id="teacher_name" class="form-control" />
+						<input type="text" name="teacher_name" id="teacher_name" class="form-control" disabled/>
 						<span class="text-danger"><?php echo $error_teacher_name; ?></span>
 					</div>
 				</div>
@@ -215,7 +221,7 @@ $result = $statement->fetchAll();
 				<div class="row">
 					<label class="col-md-4 text-right">Address <span class="text-danger">*</span></label>
 					<div class="col-md-8">
-						<textarea name="teacher_address" id="teacher_address" class="form-control"></textarea>
+						<textarea name="teacher_address" id="teacher_address" class="form-control" disabled></textarea>
 						<span class="text-danger"><?php echo $error_teacher_address; ?></span>
 					</div>
 				</div>
@@ -224,12 +230,12 @@ $result = $statement->fetchAll();
 				<div class="row">
 					<label class="col-md-4 text-right">Email Address <span class="text-danger">*</span></label>
 					<div class="col-md-8">
-						<input type="text" name="teacher_emailid" id="teacher_emailid" class="form-control" />
+						<input type="text" name="teacher_emailid" id="teacher_emailid" class="form-control" disabled/>
 						<span class="text-danger"><?php echo $error_teacher_emailid; ?></span>
 					</div>
 				</div>
 			</div>
-			<div class="form-group">
+			<!-- <div class="form-group">
 				<div class="row">
 					<label class="col-md-4 text-right">Password <span class="text-danger">*</span></label>
 					<div class="col-md-8">
@@ -237,8 +243,8 @@ $result = $statement->fetchAll();
 						<span class="text-danger"></span>
 					</div>
 				</div>
-			</div>
-			<div class="form-group">
+			</div> -->
+			<!-- <div class="form-group">
 				<div class="row">
 					<label class="col-md-4 text-right">Qualification <span class="text-danger">*</span></label>
 					<div class="col-md-8">
@@ -246,13 +252,13 @@ $result = $statement->fetchAll();
 						<span class="text-danger"><?php echo $error_teacher_qualification; ?></span>
 					</div>
 				</div>
-			</div>
+			</div> -->
 			<div class="form-group">
 				<div class="row">
-					<label class="col-md-4 text-right">Grade <span class="text-danger">*</span></label>
+					<label class="col-md-4 text-right">Class <span class="text-danger">*</span></label>
 					<div class="col-md-8">
-						<select name="teacher_grade_id" id="teacher_grade_id" class="form-control">
-                			<option value="">Select Grade</option>
+						<select name="teacher_grade_id" id="teacher_grade_id" class="form-control" disabled>
+                			<option value="">Select Class</option>
                 			<?php
                 			echo load_grade_list($connect);
                 			?>
@@ -261,20 +267,20 @@ $result = $statement->fetchAll();
 					</div>
 				</div>
 			</div>
-			<div class="form-group">
+			<!-- <div class="form-group">
 				<div class="row">
 					<label class="col-md-4 text-right">Date of Joining <span class="text-danger">*</span></label>
-					<div class="col-md-8">
-						<input type="text" name="teacher_doj" id="teacher_doj" class="form-control" readonly />
-						<span class="text-danger"><?php echo $error_teacher_doj; ?></span>
+					<div class="col-md-8"> -->
+						<input type="hidden" name="teacher_doj" id="teacher_doj" class="form-control" readonly />
+						<!-- <span class="text-danger"><?php echo $error_teacher_doj; ?></span>
 					</div>
 				</div>
-			</div>
+			</div> -->
 			<div class="form-group">
 				<div class="row">
 					<label class="col-md-4 text-right">Image <span class="text-danger">*</span></label>
 					<div class="col-md-8">
-						<input type="file" name="teacher_image" id="teacher_image" />
+						<input type="file" name="teacher_image" id="teacher_image" disabled/>
 						<span class="text-muted">Only .jpg and .png allowed</span><br />
 						<span id="error_teacher_image" class="text-danger"><?php echo $error_teacher_image; ?></span>
 					</div>
@@ -284,7 +290,8 @@ $result = $statement->fetchAll();
 		<div class="card-footer" align="center">
 			<input type="hidden" name="hidden_teacher_image" id="hidden_teacher_image" />
 			<input type="hidden" name="teacher_id" id="teacher_id" />
-			<input type="submit" name="button_action" id="button_action" class="btn btn-success btn-sm" value="Save" />
+			<!-- <input type="submit" name="button_action" id="button_action" class="btn btn-success btn-sm" value="Save" /> -->
+			<a href="profile_edit.php"><input type="button" class="btn btn-success btn-sm" value="Edit"></a>
 		</div>     
     </form>
   </div>
