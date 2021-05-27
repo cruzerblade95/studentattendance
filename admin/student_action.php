@@ -71,9 +71,13 @@ if(isset($_POST["action"]))
 	if($_POST["action"] == 'Add' || $_POST["action"] == "Edit")
 	{
 		$student_name = '';
+		$student_address = '';
+		$student_parentNo = '';
 		$student_dob = '';
 		$student_class_id = '';
 		$error_student_name = '';
+		$error_student_address = '';
+		$error_student_parentNo = '';
 		$error_student_dob = '';
 		$error_student_class_id = '';
 		$error = 0;
@@ -85,6 +89,24 @@ if(isset($_POST["action"]))
 		else
 		{
 			$student_name = $_POST["student_name"];
+		}
+		if(empty($_POST["student_address"]))
+		{
+			$error_student_address = 'Student Address is required';
+			$error++;
+		}
+		else
+		{
+			$student_address = $_POST["student_address"];
+		}
+		if(empty($_POST["student_parentNo"]))
+		{
+			$error_student_parentNo = 'Student Parent No. is required';
+			$error++;
+		}
+		else
+		{
+			$student_parentNo = $_POST["student_parentNo"];
 		}
 		if(empty($_POST["student_dob"]))
 		{
@@ -109,6 +131,8 @@ if(isset($_POST["action"]))
 			$output = array(
 				'error'							=>	true,
 				'error_student_name'			=>	$error_student_name,
+				'error_student_adress'			=>	$error_student_adress,
+				'error_student_parentNo'			=>	$error_student_parentNo,
 				'error_student_dob'				=>	$error_student_dob,
 				'error_student_class_id'		=>	$error_student_class_id
 			);
@@ -119,13 +143,15 @@ if(isset($_POST["action"]))
 			{
 				$data = array(
 					':student_name'		=>	$student_name,
+					':student_address'		=>	$student_address,
+					':student_parentNo'		=>	$student_parentNo,
 					':student_dob'		=>	$student_dob,
 					':student_class_id'	=>	$student_class_id
 				);
 				$query = "
 				INSERT INTO tbl_student 
-				(student_name, student_dob, student_class_id) 
-				VALUES (:student_name, :student_dob, :student_class_id)
+				(student_name, student_dob, student_address, student_parentNo, student_class_id) 
+				VALUES (:student_name, :student_dob, :student_address, :student_parentNo, :student_class_id)
 				";
 
 				$statement = $connect->prepare($query);
@@ -140,6 +166,8 @@ if(isset($_POST["action"]))
 			{
 				$data = array(
 					':student_name'			=>	$student_name,
+					':student_address'			=>	$student_address,
+					':student_parentNo'			=>	$student_parentNo,
 					':student_dob'			=>	$student_dob,
 					':student_class_id'		=>	$student_class_id,
 					':student_id'			=>	$_POST["student_id"]
@@ -148,6 +176,8 @@ if(isset($_POST["action"]))
 				UPDATE tbl_student 
 				SET student_name = :student_name, 
 				student_dob = :student_dob, 
+				student_address = :student_address, 
+				student_parentNo = :student_parentNo, 
 				student_class_id = :student_class_id 
 				WHERE student_id = :student_id
 				";
@@ -176,6 +206,8 @@ if(isset($_POST["action"]))
 			foreach($result as $row)
 			{
 				$output["student_name"] = $row["student_name"];
+				$output["student_address"] = $row["student_address"];
+				$output["student_parentNo"] = $row["student_parentNo"];
 				$output["student_dob"] = $row["student_dob"];
 				$output["student_class_id"] = $row["student_class_id"];
 				$output["student_id"] = $row["student_id"];

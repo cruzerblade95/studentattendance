@@ -6,6 +6,7 @@ include('header.php');
 
 $student_name = '';
 $student_address = '';
+$student_parentNo = '';
 $student_emailid = '';
 $student_password = '';
 $student_class_id = '';
@@ -14,6 +15,7 @@ $student_doj = '';
 $student_image = '';
 $error_student_name = '';
 $error_student_address = '';
+$error_student_parentNo = '';
 $error_student_emailid = '';
 $error_student_class_id = '';
 $error_student_qualification = '';
@@ -82,6 +84,15 @@ $result = $statement->fetchAll();
 			</div>
 			<div class="form-group">
 				<div class="row">
+					<label class="col-md-4 text-right">Parent No <span class="text-danger">*</span></label>
+					<div class="col-md-8">
+						<input type="text" name="student_parentNo" id="student_parentNo" class="form-control" disabled/>
+						<span class="text-danger"><?php echo $error_student_parentNo; ?></span>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="row">
 					<label class="col-md-4 text-right">Class <span class="text-danger">*</span></label>
 					<div class="col-md-8">
 						<select name="student_class_id" id="student_class_id" class="form-control" disabled>
@@ -139,6 +150,7 @@ foreach($result as $row)
 $('#student_name').val("<?php echo $row["student_name"]; ?>");
 $('#student_emailid').val("<?php echo $row["student_emailid"]; ?>");
 $('#student_address').val("<?php echo $row["student_address"]; ?>");
+$('#student_parentNo').val("<?php echo $row["student_parentNo"]; ?>");
 $('#student_class_id').val("<?php echo $row["student_class_id"]; ?>");
 $('#student_id').val("<?php echo $row["student_id"];?>");
 

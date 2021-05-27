@@ -73,15 +73,15 @@ include('header.php');
               </div>
             </div>
           </div>
-          <!-- <div class="form-group">
+          <div class="form-group">
             <div class="row">
-              <label class="col-md-4 text-right">Roll No. <span class="text-danger">*</span></label>
+              <label class="col-md-4 text-right">Address <span class="text-danger">*</span></label>
               <div class="col-md-8">
-                <input type="text" name="student_roll_number" id="student_roll_number" class="form-control" />
-                <span id="error_student_roll_number" class="text-danger"></span>
+                <textarea name="student_address" id="student_address" class="form-control"></textarea>
+                <span id="error_student_address" class="text-danger"></span>
               </div>
             </div>
-          </div> -->
+          </div>
           <div class="form-group">
             <div class="row">
               <label class="col-md-4 text-right">Date of Birth <span class="text-danger">*</span></label>
@@ -102,6 +102,15 @@ include('header.php');
                   ?>
               </select>
               <span id="error_student_class_id" class="text-danger"></span>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="row">
+              <label class="col-md-4 text-right">Parent No. Telephone <span class="text-danger">*</span></label>
+              <div class="col-md-8">
+                <input type="number" name="student_parentNo" id="student_parentNo" class="form-control" />
+                <span id="error_student_parentNo" class="text-danger"></span>
               </div>
             </div>
           </div>
@@ -170,6 +179,8 @@ $(document).ready(function(){
 		$('#student_form')[0].reset();
 		$('#error_student_name').text('');
 		$('#error_student_dob').text('');
+		$('#error_student_address').text('');
+		$('#error_student_parentNo').text('');
 		$('#error_student_class_id').text('');
 	}
 
@@ -213,6 +224,14 @@ $(document).ready(function(){
 					{
 						$('#error_student_name').text('');
 					}
+					if(data.error_student_address != '')
+					{
+						$('#error_student_address').text(data.error_student_address);
+					}
+					else
+					{
+						$('#error_student_address').text('');
+					}
 					if(data.error_student_dob != '')
 					{
 						$('#error_student_dob').text(data.error_student_dob);
@@ -220,6 +239,14 @@ $(document).ready(function(){
 					else
 					{
 						$('#error_student_dob').text('');
+					}
+					if(data.error_student_parentNo != '')
+					{
+						$('#error_student_parentNo').text(data.error_student_parentNo);
+					}
+					else
+					{
+						$('#error_student_parentNo').text('');
 					}
 					if(data.error_student_class_id != '')
 					{
@@ -247,8 +274,10 @@ $(document).ready(function(){
       success:function(data)
       {
         $('#student_name').val(data.student_name);
+        $('#student_address').val(data.student_address);
         $('#student_dob').val(data.student_dob);
         $('#student_class_id').val(data.student_class_id);
+        $('#student_parentNo').val(data.student_parentNo);
         $('#student_id').val(data.student_id);
         $('#modal_title').text('Edit Student');
         $('#button_action').val('Edit');
