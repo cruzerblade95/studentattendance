@@ -112,13 +112,13 @@ include('header.php');
             <div class="row">
               <label class="col-md-4 text-right">Class <span class="text-danger">*</span></label>
               <div class="col-md-8">
-                <select name="teacher_grade_id" id="teacher_grade_id" class="form-control">
+                <select name="teacher_class_id" id="teacher_class_id" class="form-control">
                   <option value="">Select Class</option>
                   <?php
                   echo load_grade_list($connect);
                   ?>
                 </select>
-                <span id="error_teacher_grade_id" class="text-danger"></span>
+                <span id="error_teacher_class_id" class="text-danger"></span>
               </div>
             </div>
           </div>
@@ -242,7 +242,7 @@ $(document).ready(function(){
     $('#error_teacher_qualification').text('');
     $('#error_teacher_doj').text('');
     $('#error_teacher_image').text('');
-    $('#error_teacher_grade_id').text('');
+    $('#error_teacher_class_id').text('');
   }
 
   $('#add_button').click(function(){
@@ -311,21 +311,13 @@ $(document).ready(function(){
           {
             $('#error_teacher_password').text('');
           }
-          if(data.error_teacher_grade_id != '')
+          if(data.error_teacher_class_id != '')
           {
-            $('#error_teacher_grade_id').text(data.error_teacher_grade_id);
+            $('#error_teacher_class_id').text(data.error_teacher_class_id);
           }
           else
           {
-            $('#error_teacher_grade_id').text('');
-          }
-          if(data.error_teacher_qualification != '')
-          {
-            $('#error_teacher_qualification').text(data.error_teacher_qualification);
-          }
-          else
-          {
-            $('#error_teacher_qualification').text('');
+            $('#error_teacher_class_id').text('');
           }
           if(data.error_teacher_doj != '')
           {
@@ -376,8 +368,7 @@ $(document).ready(function(){
   		{
   			$('#teacher_name').val(data.teacher_name);
   			$('#teacher_address').val(data.teacher_address);
-  			$('#teacher_grade_id').val(data.teacher_grade_id);
-  			$('#teacher_qualification').val(data.teacher_qualification);
+  			$('#teacher_class_id').val(data.teacher_class_id);
   			$('#teacher_doj').val(data.teacher_doj);
   			$('#error_teacher_image').html('<img src="teacher_image/'+data.teacher_image+'" class="img-thumbnail" width="50" />');
   			$('#hidden_teacher_image').val(data.teacher_image);

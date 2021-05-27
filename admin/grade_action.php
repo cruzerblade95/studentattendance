@@ -12,10 +12,10 @@ if(isset($_POST["action"]))
 {
 	if($_POST["action"] == "fetch")
 	{
-		$query = "SELECT * FROM tbl_grade ";
+		$query = "SELECT * FROM tbl_class ";
 		if(isset($_POST["search"]["value"]))
 		{
-			$query .= 'WHERE grade_name LIKE "%'.$_POST["search"]["value"].'%" ';
+			$query .= 'WHERE class_name LIKE "%'.$_POST["search"]["value"].'%" ';
 		}
 		if(isset($_POST["order"]))
 		{
@@ -23,7 +23,7 @@ if(isset($_POST["action"]))
 		}
 		else
 		{
-			$query .= 'ORDER BY grade_id DESC ';
+			$query .= 'ORDER BY class_id DESC ';
 		}
 		if($_POST["length"] != -1)
 		{
@@ -38,16 +38,16 @@ if(isset($_POST["action"]))
 		foreach($result as $row)
 		{
 			$sub_array = array();
-			$sub_array[] = $row["grade_name"];
-			$sub_array[] = '<button type="button" name="edit_grade" class="btn btn-primary btn-sm edit_grade" id="'.$row["grade_id"].'">Edit</button>';
-			$sub_array[] = '<button type="button" name="delete_grade" class="btn btn-danger btn-sm delete_grade" id="'.$row["grade_id"].'">Delete</button>';
+			$sub_array[] = $row["class_name"];
+			$sub_array[] = '<button type="button" name="edit_grade" class="btn btn-primary btn-sm edit_grade" id="'.$row["class_id"].'">Edit</button>';
+			$sub_array[] = '<button type="button" name="delete_grade" class="btn btn-danger btn-sm delete_grade" id="'.$row["class_id"].'">Delete</button>';
 			$data[] = $sub_array;
 		}
 
 		$output = array(
 			"draw"			=>	intval($_POST["draw"]),
 			"recordsTotal"		=> 	$filtered_rows,
-			"recordsFiltered"	=>	get_total_records($connect, 'tbl_grade'),
+			"recordsFiltered"	=>	get_total_records($connect, 'tbl_class'),
 			"data"				=>	$data
 		);
 

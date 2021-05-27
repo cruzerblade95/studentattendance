@@ -95,13 +95,13 @@ include('header.php');
             <div class="row">
               <label class="col-md-4 text-right">Class <span class="text-danger">*</span></label>
               <div class="col-md-8">
-                <select name="student_grade_id" id="student_grade_id" class="form-control">
+                <select name="student_class_id" id="student_class_id" class="form-control">
                   <option value="">Select Class</option>
                   <?php
                   echo load_grade_list($connect);
                   ?>
               </select>
-              <span id="error_student_grade_id" class="text-danger"></span>
+              <span id="error_student_class_id" class="text-danger"></span>
               </div>
             </div>
           </div>
@@ -169,9 +169,8 @@ $(document).ready(function(){
 	{
 		$('#student_form')[0].reset();
 		$('#error_student_name').text('');
-		$('#error_student_roll_number').text('');
 		$('#error_student_dob').text('');
-		$('#error_student_grade_id').text('');
+		$('#error_student_class_id').text('');
 	}
 
 	$('#add_button').click(function(){
@@ -214,14 +213,6 @@ $(document).ready(function(){
 					{
 						$('#error_student_name').text('');
 					}
-					if(data.error_student_roll_number != '')
-					{
-						$('#error_student_roll_number').text(data.error_student_roll_number);
-					}
-					else
-					{
-						$('#error_student_roll_number').text('');
-					}
 					if(data.error_student_dob != '')
 					{
 						$('#error_student_dob').text(data.error_student_dob);
@@ -230,13 +221,13 @@ $(document).ready(function(){
 					{
 						$('#error_student_dob').text('');
 					}
-					if(data.error_student_grade_id != '')
+					if(data.error_student_class_id != '')
 					{
-						$('#error_student_grade_id').text(data.error_student_grade_id);
+						$('#error_student_class_id').text(data.error_student_class_id);
 					}
 					else
 					{
-						$('#error_student_grade_id').text('');
+						$('#error_student_class_id').text('');
 					}
 				}
 			}
@@ -256,9 +247,8 @@ $(document).ready(function(){
       success:function(data)
       {
         $('#student_name').val(data.student_name);
-        $('#student_roll_number').val(data.student_roll_number);
         $('#student_dob').val(data.student_dob);
-        $('#student_grade_id').val(data.student_grade_id);
+        $('#student_class_id').val(data.student_class_id);
         $('#student_id').val(data.student_id);
         $('#modal_title').text('Edit Student');
         $('#button_action').val('Edit');

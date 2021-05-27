@@ -4,177 +4,140 @@
 
 include('header.php');
 
-$teacher_name = '';
-$teacher_address = '';
-$teacher_emailid = '';
-$teacher_password = '';
-$teacher_grade_id = '';
-$teacher_qualification = '';
-$teacher_doj = '';
-$teacher_image = '';
-$error_teacher_name = '';
-$error_teacher_address = '';
-$error_teacher_emailid = '';
-$error_teacher_grade_id = '';
-$error_teacher_qualification = '';
-$error_teacher_doj = '';
-$error_teacher_image = '';
+$student_name = '';
+$student_address = '';
+$student_emailid = '';
+$student_password = '';
+$student_class_id = '';
+// $student_image = '';
+$error_student_name = '';
+$error_student_address = '';
+$error_student_emailid = '';
+$error_student_class_id = '';
+// $error_student_image = '';
 $error = 0;
 $success = '';
 
 if(isset($_POST["button_action"]))
 {
-	$teacher_image = $_POST["hidden_teacher_image"];
-	if($_FILES["teacher_image"]["name"] != '')
-	{
-		$file_name = $_FILES["teacher_image"]["name"];
-		$tmp_name = $_FILES["teacher_image"]["tmp_name"];
-		$extension_array = explode(".", $file_name);
-		$extension = strtolower($extension_array[1]);
-		$allowed_extension = array('jpg','png');
-		if(!in_array($extension, $allowed_extension))
-		{
-			$error_teacher_image = "Invalid Image Format";
-			$error++;
-		}
-		else
-		{
-			$teacher_image = uniqid() . '.' . $extension;
-			$upload_path = 'admin/teacher_image/' . $teacher_image;
-			move_uploaded_file($tmp_name, $upload_path);
-		}
-	}
+	// $student_image = $_POST["hidden_student_image"];
+	// if($_FILES["student_image"]["name"] != '')
+	// {
+	// 	$file_name = $_FILES["student_image"]["name"];
+	// 	$tmp_name = $_FILES["student_image"]["tmp_name"];
+	// 	$extension_array = explode(".", $file_name);
+	// 	$extension = strtolower($extension_array[1]);
+	// 	$allowed_extension = array('jpg','png');
+	// 	if(!in_array($extension, $allowed_extension))
+	// 	{
+	// 		$error_student_image = "Invalid Image Format";
+	// 		$error++;
+	// 	}
+	// 	else
+	// 	{
+	// 		$student_image = uniqid() . '.' . $extension;
+	// 		$upload_path = 'admin/student_image/' . $student_image;
+	// 		move_uploaded_file($tmp_name, $upload_path);
+	// 	}
+	// }
 
-	if(empty($_POST["teacher_name"]))
+	if(empty($_POST["student_name"]))
 	{
-		$error_teacher_name = "Teacher Name is required";
+		$error_student_name = "student Name is required";
 		$error++;
 	}
 	else
 	{
-		$teacher_name = $_POST["teacher_name"];
+		$student_name = $_POST["student_name"];
 	}
 
-	if(empty($_POST["teacher_address"]))
+	if(empty($_POST["student_address"]))
 	{
-		$error_teacher_address = 'Address is required';
+		$error_student_address = 'Address is required';
 		$error++;
 	}
 	else
 	{
-		$teacher_address = $_POST["teacher_address"];
+		$student_address = $_POST["student_address"];
 	}
 
-	if(empty($_POST["teacher_emailid"]))
+	if(empty($_POST["student_emailid"]))
 	{
-		$error_teacher_emailid = "Email Address is required";
+		$error_student_emailid = "Email Address is required";
 		$error++;
 	}
 	else
 	{
-		if(!filter_var($_POST["teacher_emailid"], FILTER_VALIDATE_EMAIL))
+		if(!filter_var($_POST["student_emailid"], FILTER_VALIDATE_EMAIL))
 		{
-			$error_teacher_emailid = "Invalid email format";
+			$error_student_emailid = "Invalid email format";
 			$error;
 		}
 		else
 		{
-			$teacher_emailid = $_POST["teacher_emailid"];
+			$student_emailid = $_POST["student_emailid"];
 		}
 	}
-	if(!empty($_POST["teacher_password"]))
+	if(!empty($_POST["student_password"]))
 	{
-		$teacher_password = $_POST["teacher_password"];
+		$student_password = $_POST["student_password"];
 	}
 
-	if(empty($_POST["teacher_grade_id"]))
+	if(empty($_POST["student_class_id"]))
 	{
-		$error_teacher_grade_id = 'Grade is required';
+		$error_student_class_id = 'class is required';
 		$error++;
 	}
 	else
 	{
-		$teacher_grade_id = $_POST["teacher_grade_id"];
-	}
-
-	if(empty($_POST["teacher_qualification"]))
-	{
-		$error_teacher_qualification = "Qualification Field is required";
-		$error++;
-	}
-	else
-	{
-		$teacher_qualification = $_POST["teacher_qualification"];
-	}
-
-	if(empty($_POST["teacher_doj"]))
-	{
-		$error_teacher_doj = "Date of Join Field is required";
-		$error++;
-	}
-	else
-	{
-		$teacher_doj = $_POST["teacher_doj"];
+		$student_class_id = $_POST["student_class_id"];
 	}
 
 	if($error == 0)
 	{
-		if($teacher_password != '')
+		if($student_password != '')
 		{
 			$data = array(
-				':teacher_name'			=>	$teacher_name,
-				':teacher_address'		=>	$teacher_address,
-				':teacher_emailid'		=>	$teacher_emailid,
-				':teacher_password'		=>	password_hash($teacher_password, PASSWORD_DEFAULT),
-				':teacher_qualification'=>	$teacher_qualification,
-				':teacher_doj'			=>	$teacher_doj,
-				':teacher_image'		=>	$teacher_image,
-				':teacher_grade_id'		=>	$teacher_grade_id,
-				':teacher_id'			=>	$_POST["teacher_id"]
+				':student_name'			=>	$student_name,
+				':student_emailid'		=>	$student_emailid,
+				':student_address'		=>	$student_address,
+				':student_password'		=>	$student_password,
+				':student_class_id'		=>	$student_class_id,
+				':student_id'			=>	$_POST["student_id"]
 			);
 			$query = "
-			UPDATE tbl_teacher 
-		      SET teacher_name = :teacher_name, 
-		      teacher_address = :teacher_address, 
-		      teacher_emailid = :teacher_emailid, 
-		      teacher_password = :teacher_password, 
-		      teacher_grade_id = :teacher_grade_id, 
-		      teacher_qualification = :teacher_qualification, 
-		      teacher_doj = :teacher_doj, 
-		      teacher_image = :teacher_image 
-		      WHERE teacher_id = :teacher_id
+			UPDATE tbl_student 
+		      SET student_name = :student_name, 
+		      student_emailid = :student_emailid, 
+		      student_address = :student_address, 
+		      student_password = :student_password, 
+		      student_class_id = :student_class_id
+		      WHERE student_id = :student_id
 			";
 		}
 		else
 		{
 			$data = array(
-				':teacher_name'			=>	$teacher_name,
-				':teacher_address'		=>	$teacher_address,
-				':teacher_emailid'		=>	$teacher_emailid,
-				':teacher_qualification'=>	$teacher_qualification,
-				':teacher_doj'			=>	$teacher_doj,
-				':teacher_image'		=>	$teacher_image,
-				':teacher_grade_id'		=>	$teacher_grade_id,
-				':teacher_id'			=>	$_POST["teacher_id"]
+				':student_name'			=>	$student_name,
+				':student_emailid'		=>	$student_emailid,
+				':student_address'		=>	$student_address,
+				':student_class_id'		=>	$student_class_id,
+				':student_id'			=>	$_POST["student_id"]
 			);
 			$query = "
-			UPDATE tbl_teacher 
-		      SET teacher_name = :teacher_name, 
-		      teacher_address = :teacher_address, 
-		      teacher_emailid = :teacher_emailid, 
-		      teacher_grade_id = :teacher_grade_id, 
-		      teacher_qualification = :teacher_qualification, 
-		      teacher_doj = :teacher_doj, 
-		      teacher_image = :teacher_image 
-		      WHERE teacher_id = :teacher_id
+			UPDATE tbl_student 
+		      SET student_name = :student_name, 
+		      student_emailid = :student_emailid, 
+		      student_address = :student_address, 
+		      student_class_id = :student_class_id
+		      WHERE student_id = :student_id
 			";
 		}
-
 		$statement = $connect->prepare($query);
 		if($statement->execute($data))
 		{
-			$success = '<div class="alert alert-success">Profile Details Change Successfully</div>';
-			// header("Location: http://localhost/student-attendance-php/profile.php");
+			$success = 'success';
+			header("Location: http://localhost/studentattendance/student/profile.php?status=".$success);
 		}
 	}
 }
@@ -207,8 +170,8 @@ $result = $statement->fetchAll();
 				<div class="row">
 					<label class="col-md-4 text-right">Student Name <span class="text-danger">*</span></label>
 					<div class="col-md-8">
-						<input type="text" name="teacher_name" id="teacher_name" class="form-control" />
-						<span class="text-danger"><?php echo $error_teacher_name; ?></span>
+						<input type="text" name="student_name" id="student_name" class="form-control" />
+						<span class="text-danger"><?php echo $error_student_name; ?></span>
 					</div>
 				</div>
 			</div>
@@ -216,8 +179,8 @@ $result = $statement->fetchAll();
 				<div class="row">
 					<label class="col-md-4 text-right">Address <span class="text-danger">*</span></label>
 					<div class="col-md-8">
-						<textarea name="teacher_address" id="teacher_address" class="form-control"></textarea>
-						<span class="text-danger"><?php echo $error_teacher_address; ?></span>
+						<textarea name="student_address" id="student_address" class="form-control"></textarea>
+						<span class="text-danger"><?php echo $error_student_address; ?></span>
 					</div>
 				</div>
 			</div>
@@ -225,66 +188,48 @@ $result = $statement->fetchAll();
 				<div class="row">
 					<label class="col-md-4 text-right">Email Address <span class="text-danger">*</span></label>
 					<div class="col-md-8">
-						<input type="text" name="teacher_emailid" id="teacher_emailid" class="form-control" />
-						<span class="text-danger"><?php echo $error_teacher_emailid; ?></span>
+						<input type="text" name="student_emailid" id="student_emailid" class="form-control" />
+						<span class="text-danger"><?php echo $error_student_emailid; ?></span>
 					</div>
 				</div>
 			</div>
 			<div class="form-group">
 				<div class="row">
-					<label class="col-md-4 text-right">Password <span class="text-danger">*</span></label>
+					<label class="col-md-4 text-right">Password </label>
 					<div class="col-md-8">
-						<input type="password" name="teacher_password" id="teacher_password" class="form-control" placeholder="Leave blank to not change it" />
+						<input type="password" name="student_password" id="student_password" class="form-control" placeholder="Leave blank to not change it" />
 						<span class="text-danger"></span>
 					</div>
 				</div>
 			</div>
-			<!-- <div class="form-group">
-				<div class="row">
-					<label class="col-md-4 text-right">Qualification <span class="text-danger">*</span></label>
-					<div class="col-md-8">
-						<input type="text" name="teacher_qualification" id="teacher_qualification" class="form-control" />
-						<span class="text-danger"><?php echo $error_teacher_qualification; ?></span>
-					</div>
-				</div>
-			</div> -->
 			<div class="form-group">
 				<div class="row">
 					<label class="col-md-4 text-right">Class <span class="text-danger">*</span></label>
 					<div class="col-md-8">
-						<select name="teacher_grade_id" id="teacher_grade_id" class="form-control">
+						<select name="student_class_id" id="student_class_id" class="form-control">
                 			<option value="">Select Class</option>
                 			<?php
                 			echo load_grade_list($connect);
                 			?>
                 		</select>
-						<span class="text-danger"><?php echo $error_teacher_grade_id; ?></span>
+						<span class="text-danger"><?php echo $error_student_class_id; ?></span>
 					</div>
 				</div>
 			</div>
 			<!-- <div class="form-group">
 				<div class="row">
-					<label class="col-md-4 text-right">Date of Joining <span class="text-danger">*</span></label>
+					<label class="col-md-4 text-right">Image <span class="text-danger">*</span></label>
 					<div class="col-md-8">
-						<input type="text" name="teacher_doj" id="teacher_doj" class="form-control" readonly />
-						<span class="text-danger"><?php echo $error_teacher_doj; ?></span>
+						<input type="file" name="student_image" id="student_image" />
+						<span class="text-muted">Only .jpg and .png allowed</span><br />
+						<span id="error_student_image" class="text-danger"><?php echo $error_student_image; ?></span>
 					</div>
 				</div>
 			</div> -->
-			<div class="form-group">
-				<div class="row">
-					<label class="col-md-4 text-right">Image <span class="text-danger">*</span></label>
-					<div class="col-md-8">
-						<input type="file" name="teacher_image" id="teacher_image" />
-						<span class="text-muted">Only .jpg and .png allowed</span><br />
-						<span id="error_teacher_image" class="text-danger"><?php echo $error_teacher_image; ?></span>
-					</div>
-				</div>
-			</div>
 		</div>
 		<div class="card-footer" align="center">
-			<input type="hidden" name="hidden_teacher_image" id="hidden_teacher_image" />
-			<input type="hidden" name="teacher_id" id="teacher_id" />
+			<input type="hidden" name="hidden_student_image" id="hidden_student_image" />
+			<input type="hidden" name="student_id" id="student_id" />
 			<input type="submit" name="button_action" id="button_action" class="btn btn-success btn-sm" value="Save" />
 		</div>     
     </form>
@@ -312,19 +257,20 @@ $(document).ready(function(){
 foreach($result as $row)
 {
 ?>
-$('#teacher_name').val("<?php echo $row["student_name"]; ?>");
-$('#teacher_emailid').val("<?php echo $row["student_emailid"]; ?>");
-$('#teacher_grade_id').val("<?php echo $row["student_grade_id"]; ?>");
-$('#teacher_id').val("<?php echo $row["student_id"];?>");
+$('#student_name').val("<?php echo $row["student_name"]; ?>");
+$('#student_emailid').val("<?php echo $row["student_emailid"]; ?>");
+$('#student_address').val("<?php echo $row["student_address"]; ?>");
+$('#student_class_id').val("<?php echo $row["student_class_id"]; ?>");
+$('#student_id').val("<?php echo $row["student_id"];?>");
 
 <?php
 }
 ?>
   
-  	$('#teacher_doj').datepicker({
-  		format: "yyyy-mm-dd",
-    	autoclose: true
-  	});
+  	// $('#student_doj').datepicker({
+  	// 	format: "yyyy-mm-dd",
+    // 	autoclose: true
+  	// });
 
 });
 </script>

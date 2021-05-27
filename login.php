@@ -8,7 +8,7 @@ session_start();
 
 if(isset($_SESSION["teacher_id"]))
 {
-  header('location:index.php');
+  header('location:profile.php');
 }
 
 
@@ -85,7 +85,7 @@ $(document).ready(function(){
       {
         if(data.success)
         {
-          location.href="index.php";
+          location.href="profile.php";
         }
         if(data.error)
         {

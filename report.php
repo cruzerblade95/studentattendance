@@ -41,8 +41,7 @@ if(isset($_GET["action"]))
 			        		<table width="100%" border="1" cellpadding="5" cellspacing="0">
 			        			<tr>
 			        				<td><b>Student Name</b></td>
-			        				<td><b>Roll Number</b></td>
-			        				<td><b>Grade</b></td>
+			        				<td><b>Class</b></td>
 			        				<td><b>Attendance Status</b></td>
 			        			</tr>
 				';
@@ -50,8 +49,8 @@ if(isset($_GET["action"]))
 				SELECT * FROM tbl_attendance 
 			    INNER JOIN tbl_student 
 			    ON tbl_student.student_id = tbl_attendance.student_id 
-			    INNER JOIN tbl_grade 
-			    ON tbl_grade.grade_id = tbl_student.student_grade_id 
+			    INNER JOIN tbl_class 
+			    ON tbl_class.class_id = tbl_student.student_class_id 
 			    WHERE teacher_id = '".$_SESSION["teacher_id"]."' 
 				AND attendance_date = '".$row["attendance_date"]."'
 				";
@@ -63,8 +62,7 @@ if(isset($_GET["action"]))
 					$output .= '
 					<tr>
 						<td>'.$sub_row["student_name"].'</td>
-						<td>'.$sub_row["student_roll_number"].'</td>
-						<td>'.$sub_row["grade_name"].'</td>
+						<td>'.$sub_row["class_name"].'</td>
 						<td>'.$sub_row["attendance_status"].'</td>
 					</tr>
 					';
@@ -79,6 +77,7 @@ if(isset($_GET["action"]))
 			$file_name = 'Attendance Report.pdf';
 			$pdf->loadHtml($output);
 			$pdf->render();
+			ob_end_clean();
 			$pdf->stream($file_name, array("Attachment" => false));
 			exit(0);
 		}
@@ -91,8 +90,8 @@ if(isset($_GET["action"]))
 			$pdf = new Pdf();
 			$query = "
 			SELECT * FROM tbl_student 
-			INNER JOIN tbl_grade 
-			ON tbl_grade.grade_id = tbl_student.student_grade_id 
+			INNER JOIN tbl_class 
+			ON tbl_class.class_id = tbl_student.student_class_id 
 			WHERE tbl_student.student_id = '".$_GET["student_id"]."' 
 			";
 
@@ -115,12 +114,8 @@ if(isset($_GET["action"]))
 			            <td width="75%">'.$row["student_name"].'</td>
 			        </tr>
 			        <tr>
-			            <td width="25%"><b>Roll Number</b></td>
-			            <td width="75%">'.$row["student_roll_number"].'</td>
-			        </tr>
-			        <tr>
-			            <td width="25%"><b>Grade</b></td>
-			            <td width="75%">'.$row["grade_name"].'</td>
+			            <td width="25%"><b>Class</b></td>
+			            <td width="75%">'.$row["class_name"].'</td>
 			        </tr>
 			        <tr>
 			        	<td colspan="2" height="5">
@@ -162,6 +157,7 @@ if(isset($_GET["action"]))
 				$file_name = 'Attendance Report.pdf';
 				$pdf->loadHtml($output);
 				$pdf->render();
+				ob_end_clean();
 				$pdf->stream($file_name, array("Attachment" => false));
 				exit(0);
 			}

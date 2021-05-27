@@ -12,15 +12,15 @@ if(isset($_POST["action"]))
 	{
 		$query = "
 		SELECT * FROM tbl_teacher 
-		INNER JOIN tbl_grade 
-		ON tbl_grade.grade_id = tbl_teacher.teacher_grade_id 
+		INNER JOIN tbl_class 
+		ON tbl_class.class_id = tbl_teacher.teacher_class_id 
 		";
 		if(isset($_POST["search"]["value"]))
 		{
 			$query .= '
 			WHERE tbl_teacher.teacher_name LIKE "%'.$_POST["search"]["value"].'%" 
 			OR tbl_teacher.teacher_emailid LIKE "%'.$_POST["search"]["value"].'%" 
-			OR tbl_grade.grade_name LIKE "%'.$_POST["search"]["value"].'%" 
+			OR tbl_class.class_name LIKE "%'.$_POST["search"]["value"].'%" 
 			';
 		}
 		if(isset($_POST["order"]))
@@ -51,7 +51,7 @@ if(isset($_POST["action"]))
 			$sub_array[] = '<img src="teacher_image/'.$row["teacher_image"].'" class="img-thumbnail" width="75" />';
 			$sub_array[] = $row["teacher_name"];
 			$sub_array[] = $row["teacher_emailid"];
-			$sub_array[] = $row["grade_name"];
+			$sub_array[] = $row["class_name"];
 			$sub_array[] = '<button type="button" name="view_teacher" class="btn btn-info btn-sm view_teacher" id="'.$row["teacher_id"].'">View</button>';
 			$sub_array[] = '<button type="button" name="edit_teacher" class="btn btn-primary btn-sm edit_teacher" id="'.$row["teacher_id"].'">Edit</button>';
 			$sub_array[] = '<button type="button" name="delete_teacher" class="btn btn-danger btn-sm delete_teacher" id="'.$row["teacher_id"].'">Delete</button>';
@@ -72,16 +72,14 @@ if(isset($_POST["action"]))
 		$teacher_address = '';
 		$teacher_emailid = '';
 		$teacher_password = '';
-		$teacher_grade_id = '';
-		$teacher_qualification = '';
+		$teacher_class_id = '';
 		$teacher_doj = '';
 		$teacher_image = '';
 		$error_teacher_name = '';
 		$error_teacher_address = '';
 		$error_teacher_emailid = '';
 		$error_teacher_password = '';
-		$error_teacher_grade_id = '';
-		$error_teacher_qualification = '';
+		$error_teacher_class_id = '';
 		$error_teacher_doj = '';
 		$error_teacher_image = '';
 		$error = 0;
@@ -161,23 +159,14 @@ if(isset($_POST["action"]))
 				$teacher_password = $_POST["teacher_password"];
 			}
 		}
-		if(empty($_POST["teacher_grade_id"]))
+		if(empty($_POST["teacher_class_id"]))
 		{
-			$error_teacher_grade_id = "Grade is required";
+			$error_teacher_class_id = "Class is required";
 			$error++;
 		}
 		else
 		{
-			$teacher_grade_id = $_POST["teacher_grade_id"];
-		}
-		if(empty($_POST["teacher_qualification"]))
-		{
-			$error_teacher_qualification = 'Qualification Field is required';
-			$error++;
-		}
-		else
-		{
-			$teacher_qualification = $_POST["teacher_qualification"];
+			$teacher_class_id = $_POST["teacher_class_id"];
 		}
 		if(empty($_POST["teacher_doj"]))
 		{
@@ -196,8 +185,7 @@ if(isset($_POST["action"]))
 				'error_teacher_address'			=>	$error_teacher_address,
 				'error_teacher_emailid'			=>	$error_teacher_emailid,
 				'error_teacher_password'		=>	$error_teacher_password,
-				'error_teacher_grade_id'		=>	$error_teacher_grade_id,
-				'error_teacher_qualification'	=>	$error_teacher_qualification,
+				'error_teacher_class_id'		=>	$error_teacher_class_id,
 				'error_teacher_doj'				=>	$error_teacher_doj,
 				'error_teacher_image'			=>	$error_teacher_image
 			);
@@ -210,16 +198,15 @@ if(isset($_POST["action"]))
 					':teacher_name'			=>	$teacher_name,
 					':teacher_address'		=>	$teacher_address,
 					':teacher_emailid'		=>	$teacher_emailid,
-					':teacher_password'		=>	password_hash($teacher_password, PASSWORD_DEFAULT),
-					':teacher_qualification'	=>	$teacher_qualification,
+					':teacher_password'		=>	$teacher_password,
 					':teacher_doj'			=>	$teacher_doj,
 					':teacher_image'		=>	$teacher_image,
-					':teacher_grade_id'		=>	$teacher_grade_id
+					':teacher_class_id'		=>	$teacher_class_id
 				);
 				$query = "
 				INSERT INTO tbl_teacher 
-				(teacher_name, teacher_address, teacher_emailid, teacher_password, teacher_qualification, teacher_doj, teacher_image, teacher_grade_id) 
-				SELECT * FROM (SELECT :teacher_name, :teacher_address, :teacher_emailid, :teacher_password, :teacher_qualification, :teacher_doj, :teacher_image, :teacher_grade_id) as temp 
+				(teacher_name, teacher_address, teacher_emailid, teacher_password, teacher_doj, teacher_image, teacher_class_id) 
+				SELECT * FROM (SELECT :teacher_name, :teacher_address, :teacher_emailid, :teacher_password, :teacher_doj, :teacher_image, :teacher_class_id) as temp 
 				WHERE NOT EXISTS (
 					SELECT teacher_emailid FROM tbl_teacher WHERE teacher_emailid = :teacher_emailid
 				) LIMIT 1
@@ -247,18 +234,16 @@ if(isset($_POST["action"]))
 				$data = array(
 					':teacher_name'		=>	$teacher_name,
 					':teacher_address'	=>	$teacher_address,
-					':teacher_qualification'	=>	$teacher_qualification,
 					':teacher_doj'		=>	$teacher_doj,
 					':teacher_image'	=>	$teacher_image,
-					':teacher_grade_id'	=>	$teacher_grade_id,
+					':teacher_class_id'	=>	$teacher_class_id,
 					':teacher_id'		=>	$_POST["teacher_id"]
 				);
 				$query = "
 				UPDATE tbl_teacher 
 				SET teacher_name = :teacher_name, 
 				teacher_address = :teacher_address,  
-				teacher_grade_id = :teacher_grade_id, 
-				teacher_qualification = :teacher_qualification, 
+				teacher_class_id = :teacher_class_id, 
 				teacher_doj = :teacher_doj, 
 				teacher_image = :teacher_image
 				WHERE teacher_id = :teacher_id
@@ -281,8 +266,8 @@ if(isset($_POST["action"]))
 	{
 		$query = "
 		SELECT * FROM tbl_teacher 
-		INNER JOIN tbl_grade 
-		ON tbl_grade.grade_id = tbl_teacher.teacher_grade_id 
+		INNER JOIN tbl_class 
+		ON tbl_class.class_id = tbl_teacher.teacher_class_id 
 		WHERE tbl_teacher.teacher_id = '".$_POST["teacher_id"]."'";
 		$statement = $connect->prepare($query);
 		if($statement->execute())
@@ -313,7 +298,7 @@ if(isset($_POST["action"]))
 						</tr>
 						<tr>
 							<th>Class Name</th>
-							<td>'.$row["grade_name"].'</td>
+							<td>'.$row["class_name"].'</td>
 						</tr>
 					</table>
 				</div>

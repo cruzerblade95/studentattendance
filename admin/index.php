@@ -22,7 +22,6 @@ include('header.php');
           <thead>
             <tr>
               <th>Student Name</th>
-              <th>Class</th>
               <th>Class Name</th>
               <th>Teacher</th>
               <th>Attendance Student Percentage(monthly)</th>

@@ -79,6 +79,7 @@ if(isset($_GET["action"]))
 			$file_name = 'Attendance Report.pdf';
 			$pdf->loadHtml($output);
 			$pdf->render();
+			ob_end_clean();
 			$pdf->stream($file_name, array("Attachment" => false));
 			exit(0);
 		}
@@ -162,6 +163,7 @@ if(isset($_GET["action"]))
 				$file_name = 'Attendance Report.pdf';
 				$pdf->loadHtml($output);
 				$pdf->render();
+				ob_end_clean();
 				$pdf->stream($file_name, array("Attachment" => false));
 				exit(0);
 			}

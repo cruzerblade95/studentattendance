@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 5.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 16, 2021 at 03:35 AM
--- Server version: 10.4.17-MariaDB
--- PHP Version: 8.0.0
+-- Generation Time: May 18, 2021 at 11:54 PM
+-- Server version: 10.4.11-MariaDB
+-- PHP Version: 7.4.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -28,9 +29,9 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `tbl_admin` (
-  `admin_id` int(11) NULL,
-  `admin_user_name` varchar(100) NULL,
-  `admin_password` varchar(150) NULL
+  `admin_id` int(11) NOT NULL,
+  `admin_user_name` varchar(100) DEFAULT NULL,
+  `admin_password` varchar(150) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -47,11 +48,11 @@ INSERT INTO `tbl_admin` (`admin_id`, `admin_user_name`, `admin_password`) VALUES
 --
 
 CREATE TABLE `tbl_attendance` (
-  `attendance_id` int(11) NULL,
-  `student_id` int(11) NULL,
-  `attendance_status` enum('Present','Absent') NULL,
-  `attendance_date` date NULL,
-  `teacher_id` int(11) NULL
+  `attendance_id` int(11) NOT NULL,
+  `student_id` int(11) DEFAULT NULL,
+  `attendance_status` enum('Present','Absent') DEFAULT NULL,
+  `attendance_date` date DEFAULT NULL,
+  `teacher_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -59,31 +60,31 @@ CREATE TABLE `tbl_attendance` (
 --
 
 INSERT INTO `tbl_attendance` (`attendance_id`, `student_id`, `attendance_status`, `attendance_date`, `teacher_id`) VALUES
-(1, 7, 'Present', '2019-05-01', 3),
-(2, 8, 'Present', '2019-05-01', 3),
-(3, 9, 'Absent', '2019-05-01', 3),
-(4, 10, 'Present', '2019-05-01', 3),
-(5, 11, 'Present', '2019-05-01', 3),
-(6, 7, 'Absent', '2019-05-02', 3),
-(7, 8, 'Present', '2019-05-02', 3),
-(8, 9, 'Present', '2019-05-02', 3),
-(9, 10, 'Present', '2019-05-02', 3),
-(10, 11, 'Absent', '2019-05-02', 3),
-(11, 1, 'Present', '2019-05-01', 2),
-(12, 3, 'Present', '2019-05-01', 2),
-(13, 4, 'Present', '2019-05-01', 2),
-(14, 5, 'Present', '2019-05-01', 2),
-(15, 6, 'Present', '2019-05-01', 2),
-(16, 1, 'Present', '2019-05-02', 2),
-(17, 3, 'Absent', '2019-05-02', 2),
-(18, 4, 'Present', '2019-05-02', 2),
-(19, 5, 'Absent', '2019-05-02', 2),
-(20, 6, 'Present', '2019-05-02', 2),
-(21, 1, 'Present', '2019-05-03', 2),
-(22, 3, 'Present', '2019-05-03', 2),
-(23, 4, 'Absent', '2019-05-03', 2),
-(24, 5, 'Present', '2019-05-03', 2),
-(25, 6, 'Present', '2019-05-03', 2),
+(1, 7, 'Present', '2021-05-01', 3),
+(2, 8, 'Present', '2021-05-01', 3),
+(3, 9, 'Absent', '2021-05-01', 3),
+(4, 10, 'Present', '2021-05-01', 3),
+(5, 11, 'Present', '2021-05-01', 3),
+(6, 7, 'Absent', '2021-05-02', 3),
+(7, 8, 'Present', '2021-05-02', 3),
+(8, 9, 'Present', '2021-05-02', 3),
+(9, 10, 'Present', '2021-05-02', 3),
+(10, 11, 'Absent', '2021-05-02', 3),
+(11, 1, 'Present', '2021-05-01', 2),
+(12, 3, 'Present', '2021-05-01', 2),
+(13, 4, 'Present', '2021-05-01', 2),
+(14, 5, 'Present', '2021-05-01', 2),
+(15, 6, 'Present', '2021-05-01', 2),
+(16, 1, 'Present', '2021-05-02', 2),
+(17, 3, 'Absent', '2021-05-02', 2),
+(18, 4, 'Present', '2021-05-02', 2),
+(19, 5, 'Absent', '2021-05-02', 2),
+(20, 6, 'Present', '2021-05-02', 2),
+(21, 1, 'Present', '2021-05-03', 2),
+(22, 3, 'Present', '2021-05-03', 2),
+(23, 4, 'Absent', '2021-05-03', 2),
+(24, 5, 'Present', '2021-05-03', 2),
+(25, 6, 'Present', '2021-05-03', 2),
 (26, 1, 'Absent', '2019-05-04', 2),
 (27, 3, 'Present', '2019-05-04', 2),
 (28, 4, 'Present', '2019-05-04', 2),
@@ -250,47 +251,53 @@ INSERT INTO `tbl_attendance` (`attendance_id`, `student_id`, `attendance_status`
 (189, 20, 'Absent', '2019-05-09', 5),
 (190, 21, 'Present', '2019-05-09', 5),
 (191, 17, 'Absent', '2019-05-10', 5),
-(192, 18, 'Present', '2019-05-10', 5),
-(193, 19, 'Present', '2019-05-10', 5),
-(194, 20, 'Present', '2019-05-10', 5),
-(195, 21, 'Present', '2019-05-10', 5),
-(196, 17, 'Present', '2019-05-11', 5),
-(197, 18, 'Present', '2019-05-11', 5),
-(198, 19, 'Present', '2019-05-11', 5),
-(199, 20, 'Absent', '2019-05-11', 5),
-(200, 21, 'Present', '2019-05-11', 5),
-(201, 7, 'Present', '2019-05-13', 3),
-(202, 8, 'Present', '2019-05-13', 3),
-(203, 9, 'Present', '2019-05-13', 3),
-(204, 10, 'Absent', '2019-05-13', 3),
-(205, 11, 'Present', '2019-05-13', 3),
-(206, 7, 'Present', '2019-05-14', 3),
-(207, 8, 'Present', '2019-05-14', 3),
-(208, 9, 'Absent', '2019-05-14', 3),
-(209, 10, 'Present', '2019-05-14', 3),
-(210, 11, 'Present', '2019-05-14', 3);
+(192, 18, 'Present', '2021-05-10', 5),
+(193, 19, 'Present', '2021-05-10', 5),
+(194, 20, 'Present', '2021-05-10', 5),
+(195, 21, 'Present', '2021-05-10', 5),
+(196, 17, 'Present', '2021-05-11', 5),
+(197, 18, 'Present', '2021-05-11', 5),
+(198, 19, 'Present', '2021-05-11', 5),
+(199, 20, 'Absent', '2021-05-11', 5),
+(200, 21, 'Present', '2021-05-11', 5),
+(201, 7, 'Present', '2021-05-13', 3),
+(202, 8, 'Present', '2021-05-13', 3),
+(203, 9, 'Present', '2021-05-13', 3),
+(204, 10, 'Absent', '2021-05-13', 3),
+(205, 11, 'Present', '2021-05-13', 3),
+(206, 7, 'Present', '2021-05-14', 3),
+(207, 8, 'Present', '2021-05-14', 3),
+(208, 9, 'Absent', '2021-05-14', 3),
+(209, 10, 'Present', '2021-05-14', 3),
+(210, 11, 'Present', '2021-05-14', 3),
+(211, 22, 'Present', '2021-05-19', 6),
+(212, 1, 'Present', '2021-05-19', 2),
+(213, 3, 'Present', '2021-05-19', 2),
+(214, 4, 'Present', '2021-05-19', 2),
+(215, 5, 'Present', '2021-05-19', 2),
+(216, 6, 'Present', '2021-05-19', 2);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_grade`
+-- Table structure for table `tbl_class`
 --
 
-CREATE TABLE `tbl_grade` (
-  `grade_id` int(11) NULL,
-  `grade_name` varchar(10) NULL
+CREATE TABLE `tbl_class` (
+  `class_id` int(11) NOT NULL,
+  `class_name` varchar(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tbl_grade`
+-- Dumping data for table `tbl_class`
 --
 
-INSERT INTO `tbl_grade` (`grade_id`, `grade_name`) VALUES
-(1, '11 - A'),
-(2, '11 - B'),
-(3, '12 - A'),
-(4, '12 - B'),
-(5, '11 - C');
+INSERT INTO `tbl_class` (`class_id`, `class_name`) VALUES
+(1, '1 Aktif'),
+(2, '1 Dedikasi'),
+(3, '1 Ilham'),
+(4, '1 Tekun'),
+(5, '1 Wawasan');
 
 -- --------------------------------------------------------
 
@@ -299,41 +306,45 @@ INSERT INTO `tbl_grade` (`grade_id`, `grade_name`) VALUES
 --
 
 CREATE TABLE `tbl_student` (
-  `student_id` int(11) NULL,
-  `student_name` varchar(150) NULL,
-  `student_roll_number` int(11) NULL,
-  `student_dob` date NULL,
-  `student_grade_id` int(11) NULL,
-  `student_emailid` varchar(100) NULL,
-  `student_password` varchar(100) NULL
+  `student_id` int(11) NOT NULL,
+  `student_name` varchar(150) DEFAULT NULL,
+  `student_dob` date DEFAULT NULL,
+  `student_class_id` int(11) DEFAULT NULL,
+  `student_emailid` varchar(100) DEFAULT NULL,
+  `student_password` varchar(100) DEFAULT NULL,
+  `student_address` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_student`
 --
 
-INSERT INTO `tbl_student` (`student_id`, `student_name`, `student_roll_number`, `student_dob`, `student_grade_id`, `student_emailid`, `student_password`) VALUES
-(1, 'Edward Hedberg', 1, '2003-03-04', 1, 'student@gmail.com', 'student'),
-(3, 'William Crawford', 2, '2003-04-19', 1, '', ''),
-(4, 'Renee Crowe', 3, '2004-01-15', 1, '', ''),
-(5, 'Lillian Williams', 4, '2003-12-14', 1, '', ''),
-(6, 'Betty Mayer', 5, '2003-07-12', 1, '', ''),
-(7, 'Sally Luna', 1, '2003-12-19', 2, '', ''),
-(8, 'Richard Smith', 2, '2002-12-19', 2, '', ''),
-(9, 'Phyllis Shoop', 3, '2003-04-01', 2, '', ''),
-(10, 'Earl Perry', 4, '2003-08-15', 2, '', ''),
-(11, 'Minnie Morris', 5, '2003-06-18', 2, '', ''),
-(12, 'Lisa Ochoa', 1, '2002-05-01', 3, '', ''),
-(13, 'Marcus Holmes', 2, '2002-04-12', 3, '', ''),
-(14, 'Ernesto Arnold', 3, '2002-10-12', 3, '', ''),
-(15, 'Lillian Harris', 4, '2002-02-27', 3, '', ''),
-(16, 'Charles Reed', 5, '2002-06-12', 3, '', ''),
-(17, 'Lois Gonzales', 1, '2002-08-17', 4, '', ''),
-(18, 'Mary Floyd', 2, '2002-09-18', 4, '', ''),
-(19, 'Maria Biggs', 3, '2002-07-15', 4, '', ''),
-(20, 'Cleo Phillips', 4, '2002-01-14', 4, '', ''),
-(21, 'Rafael Royal', 5, '2002-12-05', 4, '', ''),
-(22, 'Jeremy Breawer', 1, '2002-04-11', 5, '', '');
+INSERT INTO `tbl_student` (`student_id`, `student_name`, `student_dob`, `student_class_id`, `student_emailid`, `student_password`, `student_address`) VALUES
+(1, 'Amanyna Jyzan Binti Johar', '2014-03-04', 1, 'student@gmail.com', 'student', 'No 25, Daerah Masjid,01000 Kangar,Perlis.'),
+(3, 'Ain Atikah Binti Mohd Ruzuki', '2014-04-19', 1, 'atikah@gmail.com', 'atikah', 'No 56,Taman Berangan Seri,Taman Beragan,01000 Kangar,Perlis.'),
+(4, 'Alia Afiqah Binti Danial', '2014-01-15', 1, 'afiqah@gmail.com', 'afiqah', '1/2,Bandar Amanjaya Bukit,01000 Kangar,Perlis.'),
+(5, 'Nur Syafiqah Binti Saruji Affendi', '2014-12-14', 1, 'syafiqah@gmail.com', 'syafiqah', 'No 455,Taman Murni,01000 Kangar,Perlis.'),
+(6, 'Nur Farizatul Binti Jaafar', '2014-07-12', 1, 'farizatul@gmail.com', '123', 'No 72,Taman Mutiara,01000 Kangar,Perlis.'),
+(7, 'Nur Qalesya Binti Aqil', '2014-12-19', 2, 'qalesya@gmail.com', '1234', 'No 911,Taman Norma,01000 Kangar,Perlis.'),
+(8, 'Muhammad Aqil Bin Nik Affendi', '2014-12-19', 2, 'aqil@gmail.com', '2222', 'No 204,Taman Murni,01000 Kangar,Perlis.'),
+(9, 'Adriana Qalesya Binti Anif Hasim', '2014-04-01', 2, 'adriana@gmail.com', '7272', '2/4,Taman Pengakalan Indah,01000 Kangar,Perlis.'),
+(10, 'Muhammad Hafiy Bin Mohd Ruzuki', '2014-08-15', 2, 'hafiy@gmail.com', '444', 'No 110,Taman Paduka,01000 Kangar,Perlis.'),
+(11, 'Auni Sumayyah Binti Affendi', '2014-06-18', 2, 'sumayyah@gmail.com', '2121', 'No 35,Daerah Masjid,01000 Kangar,Perlis.'),
+(12, 'Lisa Surihani Binti Khan', '2014-05-01', 3, 'lisa@gmail.com', 'lisa', '2/2,Taman Pengkalan Indah,01000 Kangar,Perlis.'),
+(13, 'Muhammad Farhan Bin Hilal', '2014-04-12', 3, 'paan@gmail.com', '332', 'No 1980,Taman Norma,01000 Kangar,Perlis.'),
+(14, 'Muhammad Alif Farhan Bin Ariff', '2014-10-12', 3, 'aliff@gmail.com', 'farhan', 'No 21,Taman Norma,01000 Kangar,Perlis.'),
+(15, 'Muhammad Harris Bin Ghazali', '2014-02-27', 3, 'harris@gmail.com', 'harris', '3/2,Taman Pengakalan Indah,01000 Kangar,Perlis.'),
+(16, 'Mohd Ruzuki Bin Awang Hamat', '2014-06-12', 3, 'zuki@gmail.com', '1010', '4/3,Taman Pengkalan Indah,01000 kangar,Perlis.'),
+(17, 'Nur Afiqah Binti Shafie', '2014-08-17', 4, 'fiqa@gmail.com', 'pikah', 'No 10,Taman Norma,01000 Kangar,Perlis.'),
+(18, 'Aidil Zaquan Bin Nik Redzuan', '2014-09-18', 4, 'aidil@gmail.com', 'zaquan', 'No 399,Taman Murni,01000 Kangar,Perlis.'),
+(19, 'Maria Binti Ali', '2014-07-15', 4, 'maria@gmail.com', '0002', 'No 20,Taman Permai,01000 Kangar,Perlis.'),
+(20, 'Ainur Zuhairah Binti Redzuan', '2014-01-14', 4, 'azuhairah@gmail.com', 'ainur', '2/2,Taman Pengkalan Indah,01000 Kangar,Perlis.'),
+(21, 'Rafael Bin Razali', '2014-12-05', 4, 'fael@gmail.com', 'rafael', 'No 345,Taman Paduka,01000 Kangar,Perlis.'),
+(22, 'Zaquan Adha Bin Khalish', '2014-04-11', 5, 'adha@gmail.com', 'adha', 'No 101,Taman Mutiara,01000 Kangar,Perlis.'),
+(23, 'Ain Ruziana Binti Mohd Ruzuki', '2014-07-06', 5, 'ain@gmail.com', '0009', 'No 229,Taman Norma,01000 Kangar,Perlis.'),
+(24, 'Muhammad Faris Bin Adnan', '2014-05-07', 5, 'faris@gmail.com', 'faris2', '1/4,Taman Pengkalan Assam,01000 Kangar,Perlis.'),
+(25, 'Nursyuhana Binti Abdul Rashid', '2014-05-15', 5, 'hana@gmail.com', 'hanaa', 'No 72,Taman Paduka,01000 Kangar,Perlis.'),
+(26, 'Nur Syazwani Binti Abdul Halim', '2014-02-25', 5, 'wanie@gmail.com', 'syazwani', '1/5,Taman Pengkalan Indah,01000 Kangar,Perlis.');
 
 -- --------------------------------------------------------
 
@@ -342,26 +353,26 @@ INSERT INTO `tbl_student` (`student_id`, `student_name`, `student_roll_number`, 
 --
 
 CREATE TABLE `tbl_teacher` (
-  `teacher_id` int(11) NULL,
-  `teacher_name` varchar(150) NULL,
-  `teacher_address` text NULL,
-  `teacher_emailid` varchar(100) NULL,
-  `teacher_password` varchar(100) NULL,
-  `teacher_qualification` varchar(100) NULL,
-  `teacher_doj` date NULL,
-  `teacher_image` varchar(100) NULL,
-  `teacher_grade_id` int(11) NULL
+  `teacher_id` int(11) NOT NULL,
+  `teacher_name` varchar(150) DEFAULT NULL,
+  `teacher_address` text DEFAULT NULL,
+  `teacher_emailid` varchar(100) DEFAULT NULL,
+  `teacher_password` varchar(100) DEFAULT NULL,
+  `teacher_doj` date DEFAULT NULL,
+  `teacher_image` varchar(100) DEFAULT NULL,
+  `teacher_class_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_teacher`
 --
 
-INSERT INTO `tbl_teacher` (`teacher_id`, `teacher_name`, `teacher_address`, `teacher_emailid`, `teacher_password`, `teacher_qualification`, `teacher_doj`, `teacher_image`, `teacher_grade_id`) VALUES
-(2, 'Teacher', '1810 Kuhl Avenue Gainesville, GA 30501', 'teacher@gmail.com', 'teacher', 'B.Sc, B.Ed', '2019-05-01', '5cdd2ed638edc.jpg', 1),
-(3, 'Peter Parker', '620 Jody Road, Philadelphia, PA 19108', 'peter_parker@gmail.com', 'teacher1', 'M.Sc, B. Ed', '2017-12-31', '5ce53488d50ec.jpg', 2),
-(4, 'John Smith', '780 University Drive, Chicago, IL 60606', 'john.smith@gmail.com', 'teacher2', 'B.Sc', '2019-05-01', '5cdd2f35be8fa.jpg', 3),
-(5, 'Donna Hubber', '3354 Round Table Drive, Cincinnati, OH 45240', 'donna.huber@gmail.com', 'teacher3', 'M.Sc', '2019-05-01', '5cdd2f767568c.jpg', 4);
+INSERT INTO `tbl_teacher` (`teacher_id`, `teacher_name`, `teacher_address`, `teacher_emailid`, `teacher_password`, `teacher_doj`, `teacher_image`, `teacher_class_id`) VALUES
+(2, 'Ain Suraya Binti Mohd Ruzuki', '911,Lorong Angsana 26,Taman Keladi,08000 Sungai Petani,Kedah.', 'suraya@gmail.com', 'teacher', '2019-05-01', '5cdd2ed638edc.jpg', 1),
+(3, 'Umairah Uzma Binti Md Noor', '1/2,Bandar Arkid,Bandar Laguna Merbok,08000 Sungai Petani,Kedah.', 'umairahuzma@gmail.com', 'teacher1', '2017-12-31', '5ce53488d50ec.jpg', 2),
+(4, 'Muhammad Amirul Bin Azhar', 'No 1990,Bandar Perdana1,Bandar Perdana,08000 Sungai Petani,Kedah.', 'amirulazhar@gmail.com', 'teacher2', '2019-05-01', '5cdd2f35be8fa.jpg', 3),
+(5, 'Nur Medina Binti Azlan', '2/3,Bandar Baru,Lagenda Height,08000 Sungai Petani,Kedah.', 'medinaanuarr@gmail.com', 'teacher3', '2020-05-02', '5cdd2f767568c.jpg', 4),
+(6, 'Kamarulzaman Bin Harun', '1790,Taman Sutera,Bandar Indah,08000 Sungai Petani,Kedah.', 'kamarulzaman@gmail.com', 'teacher4', '2002-05-17', '60a4002ca0163.jpg', 5);
 
 --
 -- Indexes for dumped tables
@@ -380,10 +391,10 @@ ALTER TABLE `tbl_attendance`
   ADD PRIMARY KEY (`attendance_id`);
 
 --
--- Indexes for table `tbl_grade`
+-- Indexes for table `tbl_class`
 --
-ALTER TABLE `tbl_grade`
-  ADD PRIMARY KEY (`grade_id`);
+ALTER TABLE `tbl_class`
+  ADD PRIMARY KEY (`class_id`);
 
 --
 -- Indexes for table `tbl_student`
@@ -405,31 +416,31 @@ ALTER TABLE `tbl_teacher`
 -- AUTO_INCREMENT for table `tbl_admin`
 --
 ALTER TABLE `tbl_admin`
-  MODIFY `admin_id` int(11) NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `admin_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tbl_attendance`
 --
 ALTER TABLE `tbl_attendance`
-  MODIFY `attendance_id` int(11) NULL AUTO_INCREMENT, AUTO_INCREMENT=211;
+  MODIFY `attendance_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=217;
 
 --
--- AUTO_INCREMENT for table `tbl_grade`
+-- AUTO_INCREMENT for table `tbl_class`
 --
-ALTER TABLE `tbl_grade`
-  MODIFY `grade_id` int(11) NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+ALTER TABLE `tbl_class`
+  MODIFY `class_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tbl_student`
 --
 ALTER TABLE `tbl_student`
-  MODIFY `student_id` int(11) NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `student_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `tbl_teacher`
 --
 ALTER TABLE `tbl_teacher`
-  MODIFY `teacher_id` int(11) NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `teacher_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

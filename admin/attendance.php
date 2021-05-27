@@ -64,7 +64,7 @@ include('header.php');
       <div class="modal-body">
         <div class="form-group">
           <select name="grade_id" id="grade_id" class="form-control">
-            <option value="">Select Grade</option>
+            <option value="">Select Class</option>
             <?php
             echo load_grade_list($connect);
             ?>
@@ -162,7 +162,7 @@ $(document).ready(function(){
 
     if(grade_id == '')
     {
-      $('#error_grade_id').text('Grade is Required');
+      $('#error_grade_id').text('Class is Required');
       error++;
     }
     else

@@ -8,15 +8,13 @@ $teacher_name = '';
 $teacher_address = '';
 $teacher_emailid = '';
 $teacher_password = '';
-$teacher_grade_id = '';
-$teacher_qualification = '';
+$teacher_class_id = '';
 $teacher_doj = '';
 $teacher_image = '';
 $error_teacher_name = '';
 $error_teacher_address = '';
 $error_teacher_emailid = '';
-$error_teacher_grade_id = '';
-$error_teacher_qualification = '';
+$error_teacher_class_id = '';
 $error_teacher_doj = '';
 $error_teacher_image = '';
 $error = 0;
@@ -87,26 +85,15 @@ if(isset($_POST["button_action"]))
 		$teacher_password = $_POST["teacher_password"];
 	}
 
-	if(empty($_POST["teacher_grade_id"]))
+	if(empty($_POST["teacher_class_id"]))
 	{
-		$error_teacher_grade_id = 'Grade is required';
+		$error_teacher_class_id = 'Class is required';
 		$error++;
 	}
 	else
 	{
-		$teacher_grade_id = $_POST["teacher_grade_id"];
+		$teacher_class_id = $_POST["teacher_class_id"];
 	}
-
-	if(empty($_POST["teacher_qualification"]))
-	{
-		$error_teacher_qualification = "Qualification Field is required";
-		$error++;
-	}
-	else
-	{
-		$teacher_qualification = $_POST["teacher_qualification"];
-	}
-
 	if(empty($_POST["teacher_doj"]))
 	{
 		$error_teacher_doj = "Date of Join Field is required";
@@ -125,11 +112,10 @@ if(isset($_POST["button_action"]))
 				':teacher_name'			=>	$teacher_name,
 				':teacher_address'		=>	$teacher_address,
 				':teacher_emailid'		=>	$teacher_emailid,
-				':teacher_password'		=>	password_hash($teacher_password, PASSWORD_DEFAULT),
-				':teacher_qualification'=>	$teacher_qualification,
+				':teacher_password'		=>	$teacher_password,
 				':teacher_doj'			=>	$teacher_doj,
 				':teacher_image'		=>	$teacher_image,
-				':teacher_grade_id'		=>	$teacher_grade_id,
+				':teacher_class_id'		=>	$teacher_class_id,
 				':teacher_id'			=>	$_POST["teacher_id"]
 			);
 			$query = "
@@ -138,8 +124,7 @@ if(isset($_POST["button_action"]))
 		      teacher_address = :teacher_address, 
 		      teacher_emailid = :teacher_emailid, 
 		      teacher_password = :teacher_password, 
-		      teacher_grade_id = :teacher_grade_id, 
-		      teacher_qualification = :teacher_qualification, 
+		      teacher_class_id = :teacher_class_id, 
 		      teacher_doj = :teacher_doj, 
 		      teacher_image = :teacher_image 
 		      WHERE teacher_id = :teacher_id
@@ -151,10 +136,9 @@ if(isset($_POST["button_action"]))
 				':teacher_name'			=>	$teacher_name,
 				':teacher_address'		=>	$teacher_address,
 				':teacher_emailid'		=>	$teacher_emailid,
-				':teacher_qualification'=>	$teacher_qualification,
 				':teacher_doj'			=>	$teacher_doj,
 				':teacher_image'		=>	$teacher_image,
-				':teacher_grade_id'		=>	$teacher_grade_id,
+				':teacher_class_id'		=>	$teacher_class_id,
 				':teacher_id'			=>	$_POST["teacher_id"]
 			);
 			$query = "
@@ -162,8 +146,7 @@ if(isset($_POST["button_action"]))
 		      SET teacher_name = :teacher_name, 
 		      teacher_address = :teacher_address, 
 		      teacher_emailid = :teacher_emailid, 
-		      teacher_grade_id = :teacher_grade_id, 
-		      teacher_qualification = :teacher_qualification, 
+		      teacher_class_id = :teacher_class_id, 
 		      teacher_doj = :teacher_doj, 
 		      teacher_image = :teacher_image 
 		      WHERE teacher_id = :teacher_id
@@ -174,7 +157,7 @@ if(isset($_POST["button_action"]))
 		if($statement->execute($data))
 		{
 			$success = 'success';
-			header("Location: http://localhost/student-attendance-php/profile.php?status=".$success);
+			header("Location: http://localhost/studentattendance/profile.php?status=".$success);
 		}
 	}
 }
@@ -232,33 +215,24 @@ $result = $statement->fetchAll();
 			</div>
 			<div class="form-group">
 				<div class="row">
-					<label class="col-md-4 text-right">Password <span class="text-danger">*</span></label>
+					<label class="col-md-4 text-right">Password </label>
 					<div class="col-md-8">
 						<input type="password" name="teacher_password" id="teacher_password" class="form-control" placeholder="Leave blank to not change it" />
 						<span class="text-danger"></span>
 					</div>
 				</div>
 			</div>
-			<!-- <div class="form-group">
-				<div class="row">
-					<label class="col-md-4 text-right">Qualification <span class="text-danger">*</span></label>
-					<div class="col-md-8"> -->
-						<input type="hidden" name="teacher_qualification" id="teacher_qualification" class="form-control" />
-						<!-- <span class="text-danger"><?php echo $error_teacher_qualification; ?></span>
-					</div>
-				</div>
-			</div> -->
 			<div class="form-group">
 				<div class="row">
 					<label class="col-md-4 text-right">Class <span class="text-danger">*</span></label>
 					<div class="col-md-8">
-						<select name="teacher_grade_id" id="teacher_grade_id" class="form-control">
+						<select name="teacher_class_id" id="teacher_class_id" class="form-control">
                 			<option value="">Select Class</option>
                 			<?php
                 			echo load_grade_list($connect);
                 			?>
                 		</select>
-						<span class="text-danger"><?php echo $error_teacher_grade_id; ?></span>
+						<span class="text-danger"><?php echo $error_teacher_class_id; ?></span>
 					</div>
 				</div>
 			</div>
@@ -273,7 +247,7 @@ $result = $statement->fetchAll();
 			</div> -->
 			<div class="form-group">
 				<div class="row">
-					<label class="col-md-4 text-right">Image <span class="text-danger">*</span></label>
+					<label class="col-md-4 text-right">Image </label>
 					<div class="col-md-8">
 						<input type="file" name="teacher_image" id="teacher_image" />
 						<span class="text-muted">Only .jpg and .png allowed</span><br />
@@ -315,8 +289,7 @@ foreach($result as $row)
 $('#teacher_name').val("<?php echo $row["teacher_name"]; ?>");
 $('#teacher_address').val("<?php echo $row["teacher_address"]; ?>");
 $('#teacher_emailid').val("<?php echo $row["teacher_emailid"]; ?>");
-$('#teacher_qualification').val("<?php echo $row["teacher_qualification"]; ?>");
-$('#teacher_grade_id').val("<?php echo $row["teacher_grade_id"]; ?>");
+$('#teacher_class_id').val("<?php echo $row["teacher_class_id"]; ?>");
 $('#teacher_doj').val("<?php echo $row["teacher_doj"]; ?>");
 $('#error_teacher_image').html("<img src='admin/teacher_image/<?php echo $row['teacher_image']; ?>' class='img-thumbnail' width='100' />");
 $('#hidden_teacher_image').val('<?php echo $row["teacher_image"]; ?>');

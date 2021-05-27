@@ -14,8 +14,8 @@ if(isset($_POST["action"]))
 		SELECT * FROM tbl_attendance 
 		INNER JOIN tbl_student 
 		ON tbl_student.student_id = tbl_attendance.student_id 
-		INNER JOIN tbl_grade 
-		ON tbl_grade.grade_id = tbl_student.student_grade_id 
+		INNER JOIN tbl_class 
+		ON tbl_class.class_id = tbl_student.student_class_id 
 		WHERE tbl_attendance.teacher_id = '".$_SESSION["teacher_id"]."' AND (
 		";
 
@@ -23,7 +23,6 @@ if(isset($_POST["action"]))
 		{
 			$query .= '
 			tbl_student.student_name LIKE "%'.$_POST["search"]["value"].'%" 
-			OR tbl_student.student_roll_number LIKE "%'.$_POST["search"]["value"].'%" 
 			OR tbl_attendance.attendance_status LIKE "%'.$_POST["search"]["value"].'%" 
 			OR tbl_attendance.attendance_date LIKE "%'.$_POST["search"]["value"].'%") 
 			';
@@ -67,7 +66,7 @@ if(isset($_POST["action"]))
 
 			$sub_array[] = $row["student_name"];
 			// $sub_array[] = $row["student_roll_number"];
-			$sub_array[] = $row["grade_name"];
+			$sub_array[] = $row["class_name"];
 			$sub_array[] = $status;
 			$sub_array[] = $row["attendance_date"];
 			$data[] = $sub_array;
@@ -155,16 +154,15 @@ if(isset($_POST["action"]))
 		SELECT * FROM tbl_attendance 
 		INNER JOIN tbl_student 
 		ON tbl_student.student_id = tbl_attendance.student_id 
-		INNER JOIN tbl_grade 
-		ON tbl_grade.grade_id = tbl_student.student_grade_id 
+		INNER JOIN tbl_class 
+		ON tbl_class.class_id = tbl_student.student_class_id 
 		WHERE tbl_attendance.teacher_id = '".$_SESSION["teacher_id"]."' AND (
 		";
 		if(isset($_POST["search"]["value"]))
 		{
 			$query .= '
-			tbl_student.student_name LIKE "%'.$_POST["search"]["value"].'%" 
-			OR tbl_student.student_roll_number LIKE "%'.$_POST["search"]["value"].'%" 
-			OR tbl_grade.grade_name LIKE "%'.$_POST["search"]["value"].'%" )
+			tbl_student.student_name LIKE "%'.$_POST["search"]["value"].'%"  
+			OR tbl_class.class_name LIKE "%'.$_POST["search"]["value"].'%" )
 			';
 		}
 		$query .= 'GROUP BY tbl_student.student_id ';
@@ -177,7 +175,7 @@ if(isset($_POST["action"]))
 		else
 		{
 			$query .= '
-			ORDER BY tbl_student.student_roll_number ASC 
+			ORDER BY tbl_student.student_name ASC 
 			';
 		}
 
@@ -195,7 +193,7 @@ if(isset($_POST["action"]))
 		{
 			$sub_array = array();
 			$sub_array[] = $row["student_name"];
-			$sub_array[] = $row["grade_name"];
+			$sub_array[] = $row["class_name"];
 			$sub_array[] = get_attendance_percentage($connect, $row["student_id"]);
 			$sub_array[] = '<button type="button" name="report_button" id="'.$row["student_id"].'" class="btn btn-info btn-sm report_button">Report</button>';
 			$data[] = $sub_array;

@@ -54,7 +54,7 @@ include('header.php');
 <?php
 
 $query = "
-SELECT * FROM tbl_grade WHERE grade_id = (SELECT teacher_grade_id FROM tbl_teacher 
+SELECT * FROM tbl_class WHERE class_id = (SELECT teacher_class_id FROM tbl_teacher 
     WHERE teacher_id = '".$_SESSION["teacher_id"]."')
 ";
 
@@ -86,7 +86,7 @@ $result = $statement->fetchAll();
               <label class="col-md-4 text-right">Class <span class="text-danger">*</span></label>
               <div class="col-md-8">
                 <?php
-                echo '<label>'.$row["grade_name"].'</label>';
+                echo '<label>'.$row["class_name"].'</label>';
                 ?>
               </div>
             </div>
@@ -114,7 +114,7 @@ $result = $statement->fetchAll();
                 <?php
                 $sub_query = "
                   SELECT * FROM tbl_student 
-                  WHERE student_grade_id = '".$row["grade_id"]."'
+                  WHERE student_class_id = '".$row["class_id"]."'
                 ";
                 $statement = $connect->prepare($sub_query);
                 $statement->execute();
@@ -123,7 +123,7 @@ $result = $statement->fetchAll();
                 {
                 ?>
                   <tr>
-                    <td><?php echo $student["student_roll_number"]; ?></td>
+                    <td><?php echo $student["student_id"]; ?></td>
                     <td>
                       <?php echo $student["student_name"]; ?>
                       <input type="hidden" name="student_id[]" value="<?php echo $student["student_id"]; ?>" />

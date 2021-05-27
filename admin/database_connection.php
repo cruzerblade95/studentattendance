@@ -4,7 +4,7 @@
 
 $connect = new PDO("mysql:host=localhost;dbname=attendance","root","");
 
-$base_url = "http://localhost/student-attendance-php/";
+$base_url = "http://localhost/studentattendance/";
 
 function get_total_records($connect, $table_name)
 {
@@ -17,7 +17,7 @@ function get_total_records($connect, $table_name)
 function load_grade_list($connect)
 {
 	$query = "
-	SELECT * FROM tbl_grade ORDER BY grade_name ASC
+	SELECT * FROM tbl_class ORDER BY class_name ASC
 	";
 	$statement = $connect->prepare($query);
 	$statement->execute();
@@ -25,7 +25,7 @@ function load_grade_list($connect)
 	$output = '';
 	foreach($result as $row)
 	{
-		$output .= '<option value="'.$row["grade_id"].'">'.$row["grade_name"].'</option>';
+		$output .= '<option value="'.$row["class_id"].'">'.$row["class_name"].'</option>';
 	}
 	return $output;
 }
@@ -116,15 +116,15 @@ function Get_student_teacher_name($connect, $student_id)
 function Get_grade_name($connect, $grade_id)
 {
 	$query = "
-	SELECT grade_name FROM tbl_grade 
-	WHERE grade_id = '".$grade_id."'
+	SELECT class_name FROM tbl_class 
+	WHERE class_id = '".$grade_id."'
 	";
 	$statement = $connect->prepare($query);
 	$statement->execute();
 	$result = $statement->fetchAll();
 	foreach($result as $row)
 	{
-		return $row["grade_name"];
+		return $row["class_name"];
 	}
 }
 

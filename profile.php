@@ -87,14 +87,14 @@ if(isset($_POST["button_action"]))
 		$teacher_password = $_POST["teacher_password"];
 	}
 
-	if(empty($_POST["teacher_grade_id"]))
+	if(empty($_POST["teacher_class_id"]))
 	{
-		$error_teacher_grade_id = 'Grade is required';
+		$error_teacher_grade_id = 'Class is required';
 		$error++;
 	}
 	else
 	{
-		$teacher_grade_id = $_POST["teacher_grade_id"];
+		$teacher_grade_id = $_POST["teacher_class_id"];
 	}
 
 	if(empty($_POST["teacher_qualification"]))
@@ -129,7 +129,7 @@ if(isset($_POST["button_action"]))
 				':teacher_qualification'=>	$teacher_qualification,
 				':teacher_doj'			=>	$teacher_doj,
 				':teacher_image'		=>	$teacher_image,
-				':teacher_grade_id'		=>	$teacher_grade_id,
+				':teacher_class_id'		=>	$teacher_grade_id,
 				':teacher_id'			=>	$_POST["teacher_id"]
 			);
 			$query = "
@@ -138,7 +138,7 @@ if(isset($_POST["button_action"]))
 		      teacher_address = :teacher_address, 
 		      teacher_emailid = :teacher_emailid, 
 		      teacher_password = :teacher_password, 
-		      teacher_grade_id = :teacher_grade_id, 
+		      teacher_class_id = :teacher_class_id, 
 		      teacher_qualification = :teacher_qualification, 
 		      teacher_doj = :teacher_doj, 
 		      teacher_image = :teacher_image 
@@ -154,7 +154,7 @@ if(isset($_POST["button_action"]))
 				':teacher_qualification'=>	$teacher_qualification,
 				':teacher_doj'			=>	$teacher_doj,
 				':teacher_image'		=>	$teacher_image,
-				':teacher_grade_id'		=>	$teacher_grade_id,
+				':teacher_class_id'		=>	$teacher_grade_id,
 				':teacher_id'			=>	$_POST["teacher_id"]
 			);
 			$query = "
@@ -162,7 +162,7 @@ if(isset($_POST["button_action"]))
 		      SET teacher_name = :teacher_name, 
 		      teacher_address = :teacher_address, 
 		      teacher_emailid = :teacher_emailid, 
-		      teacher_grade_id = :teacher_grade_id, 
+		      teacher_class_id = :teacher_class_id, 
 		      teacher_qualification = :teacher_qualification, 
 		      teacher_doj = :teacher_doj, 
 		      teacher_image = :teacher_image 
@@ -257,7 +257,7 @@ $result = $statement->fetchAll();
 				<div class="row">
 					<label class="col-md-4 text-right">Class <span class="text-danger">*</span></label>
 					<div class="col-md-8">
-						<select name="teacher_grade_id" id="teacher_grade_id" class="form-control" disabled>
+						<select name="teacher_class_id" id="teacher_class_id" class="form-control" style="-webkit-appearance: none;" disabled>
                 			<option value="">Select Class</option>
                 			<?php
                 			echo load_grade_list($connect);
@@ -321,8 +321,7 @@ foreach($result as $row)
 $('#teacher_name').val("<?php echo $row["teacher_name"]; ?>");
 $('#teacher_address').val("<?php echo $row["teacher_address"]; ?>");
 $('#teacher_emailid').val("<?php echo $row["teacher_emailid"]; ?>");
-$('#teacher_qualification').val("<?php echo $row["teacher_qualification"]; ?>");
-$('#teacher_grade_id').val("<?php echo $row["teacher_grade_id"]; ?>");
+$('#teacher_class_id').val("<?php echo $row["teacher_class_id"]; ?>");
 $('#teacher_doj').val("<?php echo $row["teacher_doj"]; ?>");
 $('#error_teacher_image').html("<img src='admin/teacher_image/<?php echo $row['teacher_image']; ?>' class='img-thumbnail' width='100' />");
 $('#hidden_teacher_image').val('<?php echo $row["teacher_image"]; ?>');
